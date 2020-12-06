@@ -65,7 +65,9 @@ body {
   background: hsl(208, 24%, 74%);
 }
 
-.calculator__key {
+.calculator__key,
+.calculator__key--operator,
+.calculator__key--equals {
   width: 75px;
   height: 75px;
   border: none;
@@ -77,7 +79,6 @@ body {
 .calculator__key--equals {
   grid-column: 4 / 5;
   grid-row: 2 / span 4;
-  background: hsl(357, 100%, 72%);
   height: auto;
 }
 
@@ -153,4 +154,8 @@ body {
 .minimal__key--dark {
   color: rgb(255, 255, 255);
   background: rgb(90, 107, 119);
+}
+
+.calculator__key--equals {
+  background: hsl(357, 100%, 72%);
 }
