@@ -104,8 +104,8 @@ body {
 .calculator__key,
 .calculator__key--operator,
 .calculator__key--equals {
-  width: 75px;
-  height: 75px;
+  width: 60px;
+  height: 60px;
   border: none;
   padding: 0.5rem;
   font-size: 1.5rem;
@@ -143,6 +143,7 @@ body {
 }
 
 .round__keys {
+  padding: 0.5rem;
   background: hsl(255, 100%, 100%);
 }
 
