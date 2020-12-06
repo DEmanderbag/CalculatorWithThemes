@@ -4,19 +4,19 @@ const themeCard = themesMenu.querySelectorAll(".theme__card");
 
 // Calculator buttons
 const calculator = document.querySelector(".calculator");
-const calculatorScreen = document.querySelector(".calculator__screen");
-const calculatorKeys = document.querySelector(".calculator__keys");
-const calculatorKeyOperator = document.querySelectorAll(".calculator__key--operator");
-const calculatorKey = document.querySelectorAll(".calculator__key");
-const calculatorKeyEquals = document.querySelector(".calculator__key--equals");
+const calculatorScreen = calculator.querySelector(".calculator__screen");
+const calculatorKeys = calculator.querySelector(".calculator__keys");
+const calculatorKeyOperator = calculator.querySelectorAll(".calculator__key--operator");
+const calculatorKey = calculator.querySelectorAll(".calculator__key");
+const calculatorKeyEquals = calculator.querySelector(".calculator__key--equals");
 let eventValue;
 
-themeSwitch.addEventListener("click", () =>{
+themeSwitch.addEventListener("pointerdown", () =>{
   themesMenu.classList.toggle("themes--open");
 });
 
 themeCard.forEach(e => {
-  e.addEventListener("click", () => {
+  e.addEventListener("pointerdown", () => {
     eventValue = e.innerText;
     if(eventValue === "Round Calculator"){
       roundCalculator();
