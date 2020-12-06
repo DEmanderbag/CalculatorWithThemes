@@ -17,14 +17,13 @@ themeSwitch.addEventListener("pointerdown", () =>{
 
 themeCard.forEach(e => {
   e.addEventListener("pointerdown", () => {
-    eventValue = e.innerText;
-    if(eventValue === "Round Calculator"){
+    if(eventValue = e.classList.contains("roundLight")){
       roundCalculator();
-    } else if(eventValue === "Round Calculator Dark Mode"){
+    } else if(eventValue = e.classList.contains("roundDark")){
       roundDarkMode();
-    } else if(eventValue === "Minimal Calculator"){
+    } else if(eventValue = e.classList.contains("minimalLight")){
       minimalCalculator();
-    }else if(eventValue === "Minimal Calculator Dark Mode"){
+    }else if(eventValue = e.classList.contains("minimalDark")){
       minimalCalculatorDark();
     }
   })

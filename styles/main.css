@@ -128,7 +128,6 @@ body {
 }
 
 /* Round buttons */
-
 .round__calculator {
   color: hsl(202, 11%, 29%);
 }
@@ -144,12 +143,10 @@ body {
 }
 
 .round__keys {
-  padding: 0.5rem;
   background: hsl(255, 100%, 100%);
 }
 
 /* Round buttons dark mode*/
-
 .round__calculator--dark {
   background-color: hsl(207, 19%, 61%);
 }
