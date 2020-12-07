@@ -11,6 +11,68 @@ const calculatorKey = calculator.querySelectorAll(".calculator__key");
 const calculatorKeyEquals = calculator.querySelector(".calculator__key--equals");
 let eventValue;
 
+// Calculator Logic
+calculatorKeys.addEventListener("pointerdown", e =>{
+  if(e.target.matches("button")){
+    const key = e.target;
+    const action = key.dataset.action;
+    const keyValue = key.textContent;
+    const displayNumber = calculatorScreen.textContent;
+    
+    console.log(keyValue);
+    console.log(displayNumber);
+    // Remove the class from the key
+    Array.from(key.parentNode.children).forEach(k => k.classList.remove("is-pressed"));
+    const previousKeyType = calculator.dataset.previousKeyType;
+    if(!action){
+      if(displayNumber === "0" || previousKeyType === "operator"){
+        calculatorScreen.textContent = keyValue;
+      } else{
+        calculatorScreen.textContent = displayNumber + keyValue;
+      }
+    }
+    calculator.dataset.previousKeyType = "key";
+
+    if(action === "add" ||
+      action === "subtract" ||
+      action === "multiply" ||
+      action === "divide"){
+        key.classList.add("is-pressed");
+        calculator.dataset.previousKeyType = "operator";
+        calculator.dataset.firstValue = displayNumber;
+        calculator.dataset.operator = action;
+      }
+
+    if (action === "decimal"){
+      calculatorScreen.textContent = displayNumber + ".";
+    } 
+    if(action === "clear"){
+      console.log(`${action} key!`);
+    }
+    if(action === "calculate"){
+      const firstValue = calculator.dataset.firstValue;
+      const operator = calculator.dataset.operator;
+      const secondValue = displayNumber;
+      calculatorScreen.textContent = calculate(firstValue, operator, secondValue);
+    }
+  }
+})
+
+const calculate = (n1, operator, n2) => {
+  let result = "";
+  if(operator === "add"){
+    result = parseFloat(n1) + parseFloat(n2);
+  } else if (operator === "subtract"){
+    result = parseFloat(n1) - parseFloat(n2);
+  } else if (operator === "multiply"){
+    result = parseFloat(n1) * parseFloat(n2);
+  } else if (operator === "divide"){
+    result = parseFloat(n1) / parseFloat(n2);
+  }
+  return result;
+}
+
+// Logic for theme switching
 themeSwitch.addEventListener("pointerdown", () =>{
   themesMenu.classList.toggle("themes--open");
 });
@@ -28,7 +90,6 @@ themeCard.forEach(e => {
     }
   })
 });
-
 
 function removeClasses () {
   calculatorScreen.className = "calculator__screen";
