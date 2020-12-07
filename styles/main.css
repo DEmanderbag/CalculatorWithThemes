@@ -51,12 +51,6 @@ body {
   background-color: cadetblue;
 }
 
-.theme__card p {
-  font-weight: bold;
-  color: white;
-  padding: 0.25rem 0;
-}
-
 .theme__preview {
   overflow: hidden;
   width: 50%;
@@ -104,8 +98,8 @@ body {
 .calculator__key,
 .calculator__key--operator,
 .calculator__key--equals {
-  width: 60px;
-  height: 60px;
+  width: 65px;
+  height: 65px;
   border: none;
   padding: 0.5rem;
   font-size: 1.5rem;
