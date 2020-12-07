@@ -24,19 +24,34 @@ calculatorKeys.addEventListener("pointerdown", e =>{
     // Remove the class from the key
     Array.from(key.parentNode.children).forEach(k => k.classList.remove("is-pressed"));
     const previousKeyType = calculator.dataset.previousKeyType;
+
     if(!action){
       if(displayNumber === "0" || previousKeyType === "operator"){
         calculatorScreen.textContent = keyValue;
       } else{
         calculatorScreen.textContent = displayNumber + keyValue;
       }
+      calculator.dataset.previousKeyType = "number";
     }
-    calculator.dataset.previousKeyType = "key";
+    
 
     if(action === "add" ||
       action === "subtract" ||
       action === "multiply" ||
       action === "divide"){
+      const firstValue = calculator.dataset.firstValue;
+      const operator = calculator.dataset.operator;
+      const secondValue = displayNumber;
+
+      // Fix issue for consecutive calculations here 
+      if (firstValue && operator && previousKeyType !== "operator") {
+        const calcValue = calculate(firstValue, operator, secondValue);
+        calculatorScreen.textContent = calcValue;
+
+        calculator.dataset.firstValue = calcValue;
+      } else {
+        calculator.dataset.firstValue = displayNumber;
+      }
         key.classList.add("is-pressed");
         calculator.dataset.previousKeyType = "operator";
         calculator.dataset.firstValue = displayNumber;
@@ -44,16 +59,25 @@ calculatorKeys.addEventListener("pointerdown", e =>{
       }
 
     if (action === "decimal"){
-      calculatorScreen.textContent = displayNumber + ".";
+      if(!displayNumber.includes(".")){
+        calculatorScreen.textContent = displayNumber + ".";
+      } else if (previousKeyType === "operator"){
+        calculatorScreen.textContent = "0.";
+      }
+      calculator.dataset.previousKeyType = "decimal";
     } 
+
     if(action === "clear"){
       console.log(`${action} key!`);
+      calculator.dataset.previousKeyType = "clear";
     }
     if(action === "calculate"){
       const firstValue = calculator.dataset.firstValue;
       const operator = calculator.dataset.operator;
       const secondValue = displayNumber;
       calculatorScreen.textContent = calculate(firstValue, operator, secondValue);
+
+      calculator.dataset.previousKeyType = "calculate";
     }
   }
 })

@@ -112,9 +112,9 @@ body {
   height: auto;
 }
 
-.calculator__key:active,
-.calculator__key:focus {
+.calculator__key:active {
   outline: none;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5) inset;
 }
 
 .calculator__key--operator {
@@ -191,6 +191,11 @@ body {
 .is-pressed {
   background-color: orange;
 }
+
+.is-pressed:active {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5) inset;
+}
+
 @media screen and (max-width: 640px) {
   .themes {
     flex-wrap: wrap;
