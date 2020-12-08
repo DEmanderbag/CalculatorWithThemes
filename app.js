@@ -18,15 +18,12 @@ calculatorKeys.addEventListener("pointerdown", e =>{
     const action = key.dataset.action;
     const keyValue = key.textContent;
     const displayNumber = calculatorScreen.textContent;
-    
-    console.log(keyValue);
-    console.log(displayNumber);
     // Remove the class from the key
     Array.from(key.parentNode.children).forEach(k => k.classList.remove("is-pressed"));
     const previousKeyType = calculator.dataset.previousKeyType;
 
     if(!action){
-      if(displayNumber === "0" || previousKeyType === "operator"){
+      if(displayNumber === "0" || previousKeyType === "operator" || previousKeyType === "calculate"){
         calculatorScreen.textContent = keyValue;
       } else{
         calculatorScreen.textContent = displayNumber + keyValue;
@@ -43,57 +40,69 @@ calculatorKeys.addEventListener("pointerdown", e =>{
       const operator = calculator.dataset.operator;
       const secondValue = displayNumber;
 
-      // Fix issue for consecutive calculations here 
-      if (firstValue && operator && previousKeyType !== "operator") {
+
+      if (firstValue && operator && previousKeyType !== "operator" && previousKeyType !== "calculate") {
         const calcValue = calculate(firstValue, operator, secondValue);
         calculatorScreen.textContent = calcValue;
-
         calculator.dataset.firstValue = calcValue;
       } else {
         calculator.dataset.firstValue = displayNumber;
       }
         key.classList.add("is-pressed");
         calculator.dataset.previousKeyType = "operator";
-        calculator.dataset.firstValue = displayNumber;
         calculator.dataset.operator = action;
       }
 
     if (action === "decimal"){
       if(!displayNumber.includes(".")){
         calculatorScreen.textContent = displayNumber + ".";
-      } else if (previousKeyType === "operator"){
+      } else if (previousKeyType === "operator" || previousKeyType === "calculate"){
         calculatorScreen.textContent = "0.";
       }
       calculator.dataset.previousKeyType = "decimal";
     } 
 
+    if (action !== "clear"){
+      const clearButton = calculator.querySelector("[data-action=clear]");
+      clearButton.textContent = "CE";
+    }
+
     if(action === "clear"){
-      console.log(`${action} key!`);
+      if(key.textContent === "AC"){
+        calculator.dataset.firstValue = "";
+        calculator.dataset.modValue = "";
+        calculator.dataset.operator = "";
+        calculator.dataset.previousKeyType = "";
+      } else {
+        key.textContent = "AC";
+      }
+      calculatorScreen.textContent = 0;
       calculator.dataset.previousKeyType = "clear";
     }
     if(action === "calculate"){
-      const firstValue = calculator.dataset.firstValue;
+      let firstValue = calculator.dataset.firstValue;
       const operator = calculator.dataset.operator;
-      const secondValue = displayNumber;
-      calculatorScreen.textContent = calculate(firstValue, operator, secondValue);
-
+      let secondValue = displayNumber;
+      if(firstValue){
+        if(previousKeyType === "calculate"){
+          firstValue = displayNumber;
+          secondValue = calculator.dataset.modValue;
+        }
+        calculatorScreen.textContent = calculate(firstValue, operator, secondValue);
+      }
+      calculator.dataset.modValue = secondValue;
       calculator.dataset.previousKeyType = "calculate";
     }
   }
 })
 
 const calculate = (n1, operator, n2) => {
-  let result = "";
-  if(operator === "add"){
-    result = parseFloat(n1) + parseFloat(n2);
-  } else if (operator === "subtract"){
-    result = parseFloat(n1) - parseFloat(n2);
-  } else if (operator === "multiply"){
-    result = parseFloat(n1) * parseFloat(n2);
-  } else if (operator === "divide"){
-    result = parseFloat(n1) / parseFloat(n2);
-  }
-  return result;
+  const firstNum = parseFloat(n1);
+  const secondNum = parseFloat(n2);
+  if(operator === "add"){return firstNum + secondNum;} 
+  if (operator === "subtract"){return firstNum - secondNum;}
+  if (operator === "multiply"){return firstNum * secondNum;}
+  if (operator === "divide"){return firstNum / secondNum;}
 }
 
 // Logic for theme switching
