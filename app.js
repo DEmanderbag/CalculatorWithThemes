@@ -138,6 +138,7 @@ function removeClasses () {
 }
 
 function roundCalculator (){
+  themesMenu.classList.toggle("themes--open");
   removeClasses();
   calculatorScreen.classList.add("round__screen");
   loopElements(calculatorKeyOperator, "round__key");
