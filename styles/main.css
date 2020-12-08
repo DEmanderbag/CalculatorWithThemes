@@ -23,6 +23,11 @@
   --accent: #ff7077;
 }
 
+/* Disable double-tap zoom on mobile */
+button {
+  touch-action: manipulation;
+}
+
 body {
   height: 100vh;
   display: flex;
