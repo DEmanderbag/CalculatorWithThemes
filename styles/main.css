@@ -29,10 +29,12 @@ button {
 }
 
 body {
-  height: 100vh;
+  min-height: 100vh;
+  background-color: var(--light-gray);
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: Calibri, Arial, sans-serif;
 }
 
 .theme__switch {
@@ -63,6 +65,7 @@ body {
 .themes--open {
   display: flex;
   height: 15rem;
+  margin-bottom: 2rem;
 }
 
 .theme__card {
@@ -91,7 +94,7 @@ body {
 .container {
   background-color: var(--light-gray);
   width: 100%;
-  height: 100vh;
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
